@@ -3,7 +3,80 @@
 @{
     ViewData["Title"] = "Create";
 }
-@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+
+
+<h1>Create</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="first_form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" id="first_name" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" id="last_name"/>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" id="email"/>
+                <span asp-validation-for="Email" class="text-danger"></span>
+				<br />
+				<h5>@Html.ValidationMessageFor(m=>m.Email)</h5>
+            </div>
+            <div class="form-group">
+                <label asp-for="Number" class="control-label">Phone Number(10 digits)</label>
+                <input asp-for="Number" class="form-control" id="number"/>
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input type ="password" asp-for="Password" class="form-control" id="password"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" value="Create" class="btn btn-primary" onclick="submitStudent()">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+	<script type="text/javascript">
+    function submitStudent() {
+        var data = $("#first_form").serialize();
+        console.log(data);
+        alert(data);
+        $.ajax({
+            type: 'POST',
+            url: '/Users/Create',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
+            data: data,
+            success: function (result) {
+                alert('Successfully received Data ');
+                console.log(result);
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
 		$('#first_form').submit(function(e) {
@@ -20,7 +93,7 @@
 			if (number.length < 1) {
 				$('#number').after('<span class="error">This field is required</span>');
 			}
-			if (number.length != 8) {
+			if (number.length != 10) {
 				$('#number').after('<span class="error">Phone Number should be of Length 10</span>');
 			}
 			if (last_name.length < 1) {
@@ -75,53 +148,7 @@
 			}
 		});
 	});
-</script>*@
-<h1>Create</h1>
+</script>
 
-<h4>User</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" id="first_form">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" id="first_name" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" id="last_name"/>
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" id="email"/>
-                <span asp-validation-for="Email" class="text-danger"></span>
-				<br />
-				<h5>@Html.ValidationMessageFor(m=>m.Email)</h5>
-            </div>
-            <div class="form-group">
-                <label asp-for="Number" class="control-label">Phone Number(10 digits)</label>
-                <input asp-for="Number" class="form-control" id="number"/>
-                
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input type ="password" asp-for="Password" class="form-control" id="password"/>
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

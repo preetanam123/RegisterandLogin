@@ -66,6 +66,9 @@ namespace RegisterandLogin.Controllers
                 {
                     _context.Add(user);
                     await _context.SaveChangesAsync();
+                    if (!ModelState.IsValid)
+                        return BadRequest("Enter required fields");
+                    //Insert code;
                     return RedirectToAction(nameof(Index));
                 }
                 else
