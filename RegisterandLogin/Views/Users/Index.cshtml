@@ -49,11 +49,20 @@
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <form asp-action="Delete" asp-route-g="@item.g" method="post">
+                <a asp-action="Edit" asp-route-g="@item.g">Edit</a> |
+                <a asp-action="Details" asp-route-g="@item.g">Details</a> |
+                <a asp-action="Delete" asp-route-g="@item.g">Delete</a> |
+                <button type="submit" onclick="return confirm('Are you sure you want to delete @item.Email')">
+                Delete Here </button>
+                </form>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+@section Scripts
+{
+
+}

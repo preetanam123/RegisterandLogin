@@ -25,11 +25,11 @@ namespace RegisterandLogin.Migrations
 
             modelBuilder.Entity("RegisterandLogin.Models.User", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("g")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("Guid");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<Guid>("g"), 1L, 1);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -50,7 +50,7 @@ namespace RegisterandLogin.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("g");
 
                     b.ToTable("Users");
                 });

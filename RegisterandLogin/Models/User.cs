@@ -5,9 +5,9 @@ namespace RegisterandLogin.Models
 {
     public class User
     {
+
 		[Key]
-		//[Display(Name = "ID")]
-		public int ID { get; set; }
+		public Guid g { get; set; }
 
 		//[Required(ErrorMessage = "Please enter FirstName")]
 		//[Display(Name = "FirstName")]
