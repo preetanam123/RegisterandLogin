@@ -28,6 +28,25 @@ namespace RegisterandLogin.Controllers
                         Problem("Entity set 'ApplicationDbContext.Users'  is null.");
         }
         // GET: Users/Details/5
+        [HttpGet]
+        public async Task<IActionResult> Index(string search)
+        {
+            ViewData["GetUser"]=search;
+            var q = from x in _context.Users select x;
+            if(!String.IsNullOrEmpty(search))
+            {
+                q = q.Where(x => x.FirstName.Contains(search)  || x.LastName.Contains(search) || x.Email.Contains(search));
+            }
+            return View(await q.AsNoTracking().ToListAsync());
+        }
+        [HttpPost]
+        public JsonResult Get(string searchTerm)
+        {
+            List<string> users = _context.Users.Where(s => s.FirstName.StartsWith(searchTerm))
+                .Select(x => x.FirstName).ToList();
+            return Json(users);
+        }
+
         public async Task<IActionResult> Details(Guid? g)
         {
             if (g==null || _context.Users == null)
