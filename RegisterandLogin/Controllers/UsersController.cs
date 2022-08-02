@@ -14,6 +14,7 @@ namespace RegisterandLogin.Controllers
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public UsersController(ApplicationDbContext context)
         {
@@ -80,6 +81,11 @@ namespace RegisterandLogin.Controllers
             var p=_context.Users.Any(u => u.Email == user.Email);
             if (ModelState.IsValid)
             {
+
+                string folder = "Users/images";
+                folder += Guid.NewGuid().ToString() + "_" + user.image.FileName;
+                string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+                await user.image.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
                 if (!p)
                 {
                     _context.Add(user);

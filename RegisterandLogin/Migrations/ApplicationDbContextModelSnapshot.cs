@@ -49,6 +49,9 @@ namespace RegisterandLogin.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("g");
 
                     b.ToTable("Users");

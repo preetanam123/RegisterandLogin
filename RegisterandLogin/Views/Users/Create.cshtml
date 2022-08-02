@@ -13,7 +13,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" id="first_form">
+        <form asp-action="Create" id="first_form" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
@@ -42,6 +42,13 @@
                 <input type ="password" asp-for="Password" class="form-control" id="password"/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+			<div class="form-group my-3">
+				<label asp-for="image" class="control-label">
+					Upload Image
+				</label>
+					<input asp-for="image" type="file" class="form-control" id="image"/>
+				
+			</div>
             <div class="form-group">
                 <button type="submit" value="Create" class="btn btn-primary" onclick="submitStudent()">Create</button>
             </div>
