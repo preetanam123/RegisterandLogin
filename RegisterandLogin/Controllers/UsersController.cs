@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RegisterandLogin.Data;
 using RegisterandLogin.Models;
+using System.Web;
+using Microsoft.AspNetCore.Session;
 
 namespace RegisterandLogin.Controllers
 {
@@ -21,6 +23,16 @@ namespace RegisterandLogin.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Login()
+        {
+            return View(await _context.Users.ToListAsync());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([Bind("g,FirstName,LastName,Email,Number,Password")] User user)
+        {
+            return View(await _context.Users.ToListAsync());
+        } 
         // GET: Users
         public async Task<IActionResult> Index()
         {
